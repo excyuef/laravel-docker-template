@@ -135,7 +135,7 @@ docker exec -it laravel-nginx sh
 
 ---
 
-## ⚡ Artisan Commands yang Sering Dipakai
+## Artisan Commands yang Sering Dipakai
 
 ### Aplikasi
 
@@ -239,7 +239,7 @@ docker exec laravel-php php artisan optimize:clear
 
 ---
 
-## 📦 Composer Commands
+## Composer Commands
 
 ```bash
 # Install semua dependency
@@ -260,7 +260,7 @@ docker exec laravel-php composer dump-autoload -o
 
 ---
 
-## 🛠 Docker Management Commands
+## Docker Management Commands
 
 ```bash
 # Lihat status semua container
@@ -297,7 +297,7 @@ docker stats
 
 ---
 
-## 🏗 Penjelasan Setiap Service
+## Penjelasan Setiap Service
 
 | Container           | Image                       | Port | Peran                                                                                                         |
 | ------------------- | --------------------------- | ---- | ------------------------------------------------------------------------------------------------------------- |
@@ -313,7 +313,7 @@ Nginx menggunakan event-driven, non-blocking architecture sehingga lebih efisien
 
 ---
 
-## 🔐 Best Practice Permission
+## Best Practice Permission
 
 File ownership diatur agar PHP-FPM bisa baca/tulis direktori yang diperlukan:
 
@@ -334,7 +334,7 @@ Directory yang perlu writable oleh PHP:
 
 ---
 
-## ⚙️ Optimasi RAM (untuk host 8GB)
+## Optimasi RAM (untuk host 8GB)
 
 Alokasi perkiraan per service saat development:
 
@@ -359,7 +359,7 @@ docker compose stop laravel-queue laravel-scheduler
 
 ---
 
-## 🌐 Production Deployment Notes
+## Production Deployment Notes
 
 Untuk deploy ke production, ganti `target: development` di `docker-compose.yml` ke `target: production`, dan:
 
