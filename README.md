@@ -5,7 +5,7 @@ Stack: **PHP 8.4-FPM** + **Nginx 1.27** + **MySQL 8.4** + **Redis 7.4**
 
 ---
 
-## 📁 Struktur Direktori
+## Struktur Directory
 
 ```
 project-root/
@@ -36,7 +36,7 @@ project-root/
 
 ---
 
-## 🚀 Setup dari Awal
+## Cara Setup dari Awal
 
 ### 1. Clone / Buat Project Laravel
 
@@ -74,13 +74,13 @@ nano .env
 
 **Nilai penting yang harus diisi di `.env`:**
 
-| Key | Keterangan |
-|-----|-----------|
-| `APP_KEY` | Dikosongkan dulu, generate setelah container jalan |
-| `APP_TIMEZONE` | Timezone app, contoh: `Asia/Jakarta` |
-| `DB_PASSWORD` | Password MySQL untuk user `laravel` |
-| `DB_ROOT_PASSWORD` | Password root MySQL |
-| `DOCKER_UID` / `DOCKER_GID` | Output dari `id -u` / `id -g` |
+| Key                         | Keterangan                                         |
+| --------------------------- | -------------------------------------------------- |
+| `APP_KEY`                   | Dikosongkan dulu, generate setelah container jalan |
+| `APP_TIMEZONE`              | Timezone app, contoh: `Asia/Jakarta`               |
+| `DB_PASSWORD`               | Password MySQL untuk user `laravel`                |
+| `DB_ROOT_PASSWORD`          | Password root MySQL                                |
+| `DOCKER_UID` / `DOCKER_GID` | Output dari `id -u` / `id -g`                      |
 
 ### 4. Build dan Jalankan Container
 
@@ -117,7 +117,7 @@ Buka browser: **http://localhost:8080**
 
 ---
 
-## 🔑 Masuk ke Container
+## Cara Masuk ke Container
 
 ```bash
 # Masuk ke PHP-FPM container (untuk artisan, composer, dll)
@@ -299,14 +299,14 @@ docker stats
 
 ## 🏗 Penjelasan Setiap Service
 
-| Container | Image | Port | Peran |
-|-----------|-------|------|-------|
-| `laravel-nginx` | nginx:1.27-alpine | 8080 | Web server: melayani request HTTP, serve static files langsung tanpa PHP, proxy ke PHP-FPM untuk `.php` files |
-| `laravel-php` | Custom (PHP 8.4-FPM Alpine) | — | Application server: eksekusi PHP, handle request dari Nginx via FastCGI (port 9000 internal) |
-| `laravel-mysql` | mysql:8.4 | 3306 | Database utama: menyimpan data aplikasi |
-| `laravel-redis` | redis:7.4-alpine | 6379 | In-memory store: cache, session, queue |
-| `laravel-queue` | Same as laravel-php | — | Background job processor: menjalankan `queue:work` secara terus-menerus |
-| `laravel-scheduler` | Same as laravel-php | — | Task scheduler: menjalankan `schedule:run` setiap 60 detik |
+| Container           | Image                       | Port | Peran                                                                                                         |
+| ------------------- | --------------------------- | ---- | ------------------------------------------------------------------------------------------------------------- |
+| `laravel-nginx`     | nginx:1.27-alpine           | 8080 | Web server: melayani request HTTP, serve static files langsung tanpa PHP, proxy ke PHP-FPM untuk `.php` files |
+| `laravel-php`       | Custom (PHP 8.4-FPM Alpine) | —    | Application server: eksekusi PHP, handle request dari Nginx via FastCGI (port 9000 internal)                  |
+| `laravel-mysql`     | mysql:8.4                   | 3306 | Database utama: menyimpan data aplikasi                                                                       |
+| `laravel-redis`     | redis:7.4-alpine            | 6379 | In-memory store: cache, session, queue                                                                        |
+| `laravel-queue`     | Same as laravel-php         | —    | Background job processor: menjalankan `queue:work` secara terus-menerus                                       |
+| `laravel-scheduler` | Same as laravel-php         | —    | Task scheduler: menjalankan `schedule:run` setiap 60 detik                                                    |
 
 **Mengapa Nginx bukan Apache?**  
 Nginx menggunakan event-driven, non-blocking architecture sehingga lebih efisien untuk melayani banyak koneksi secara bersamaan dengan RAM lebih rendah. Apache dengan mod_php spawn satu thread per request, kurang ideal untuk traffic tinggi. Nginx + PHP-FPM adalah kombinasi standard untuk Laravel production.
@@ -328,6 +328,7 @@ chmod -R 775 storage bootstrap/cache
 ```
 
 Directory yang perlu writable oleh PHP:
+
 - `storage/` — logs, cache, uploaded files, compiled views
 - `bootstrap/cache/` — config cache, route cache
 
@@ -337,15 +338,15 @@ Directory yang perlu writable oleh PHP:
 
 Alokasi perkiraan per service saat development:
 
-| Service | RAM |
-|---------|-----|
-| laravel-nginx | ~30 MB |
-| laravel-php | ~150–300 MB |
-| laravel-mysql | ~300–512 MB |
-| laravel-redis | ~30–50 MB |
-| laravel-queue | ~80–150 MB |
-| laravel-scheduler | ~80 MB |
-| **Total** | **~700 MB – 1.1 GB** |
+| Service           | RAM                  |
+| ----------------- | -------------------- |
+| laravel-nginx     | ~30 MB               |
+| laravel-php       | ~150–300 MB          |
+| laravel-mysql     | ~300–512 MB          |
+| laravel-redis     | ~30–50 MB            |
+| laravel-queue     | ~80–150 MB           |
+| laravel-scheduler | ~80 MB               |
+| **Total**         | **~700 MB – 1.1 GB** |
 
 Masih menyisakan 6–7 GB untuk OS, IDE, browser, dan proses lain.
 
